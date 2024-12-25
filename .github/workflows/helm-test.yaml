@@ -1,12 +1,10 @@
 name: Test Helm Chart
 
-# on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
-#     branches:
-#       - main
+on:
+  push:
+    branches:
+      # - main
+      - matikan-github-action
 
 jobs:
   helm-test:
