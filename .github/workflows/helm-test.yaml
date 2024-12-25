@@ -1,0 +1,56 @@
+name: Test Helm Chart
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  helm-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Minikube
+      run: |
+        curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+        chmod +x minikube
+        sudo mv minikube /usr/local/bin/
+        minikube start --driver=docker
+
+    - name: Set up kubectl
+      run: |
+        curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.21.0/bin/linux/amd64/kubectl"
+        chmod +x kubectl
+        sudo mv kubectl /usr/local/bin/
+
+    - name: Install Helm
+      run: |
+        curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+    # - name: Add Helm chart repo (if needed)
+    #   run: |
+    #     helm repo add my-repo https://charts.example.com
+    #     helm repo update
+
+    - name: Install Helm Chart
+      run: |
+        helm install tic-tac-toe ./helm-chart-directory
+
+    - name: Wait for Deployment
+      run: |
+        kubectl rollout status deployment tic-tac-toe-deployment
+
+    - name: Test the Helm Chart Deployment
+      run: |
+        kubectl get pods
+        kubectl get svc
+        kubectl get ingress
+        kubectl port-forward service/tic-tac-toe-service 3031:3031 &
+        sleep 5
+        curl http://localhost:3031
