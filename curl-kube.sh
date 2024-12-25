@@ -8,3 +8,9 @@
 # kaf k8s/service.yaml
 
 curl http://$(minikube ip):$(kubectl get svc tic-tac-toe-service -o=jsonpath='{.spec.ports[0].nodePort}')
+
+# use ingress
+echo "$(minikube ip) tic-tac-toe.local" | sudo tee -a /etc/hosts 
+
+curl http://tic-tac-toe.local
+
