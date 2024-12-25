@@ -40,7 +40,7 @@ jobs:
 
     - name: Install Helm Chart
       run: |
-        helm install tic-tac-toe ./helm-chart-directory
+        helm install tic-tac-toe ./helm
 
     - name: Wait for Deployment
       run: |
