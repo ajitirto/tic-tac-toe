@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tic-tac-toe-deployment
+spec:
+  replicas: 1  # Number of instances (pods) you want to run
+  selector:
+    matchLabels:
+      app: tic-tac-toe
+  template:
+    metadata:
+      labels:
+        app: tic-tac-toe
+    spec:
+      containers:
+        - name: tic-tac-toe-container
+          image: ajitirto/tic-tac-toe:1.0  # Replace with your Docker Hub image
+          ports:
+            - containerPort: 3000  # Expose port 80 inside the container
