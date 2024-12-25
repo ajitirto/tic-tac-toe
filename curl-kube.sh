@@ -14,3 +14,10 @@ echo "$(minikube ip) tic-tac-toe.local" | sudo tee -a /etc/hosts
 
 curl http://tic-tac-toe.local
 
+# helm 
+# helm lint helm/
+# helm install tic-tac-toe helm/ 
+
+# ╰─❯ helm list                                                                                                       ─╯
+# NAME       	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART                  	APP VERSION
+# tic-tac-toe	default  	1       	2024-12-25 16:28:24.722780754 +0700 WIB	deployed	tic-tac-toe-chart-0.1.0	1.0        
