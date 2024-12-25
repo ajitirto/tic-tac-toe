@@ -1,0 +1,17 @@
+replicaCount: 1
+
+image:
+  repository: ajitirto/tic-tac-toe
+  tag: "1.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 3031
+  targetPort: 3000
+
+ingress:
+  enabled: true
+  hostname: tic-tac-toe.local
+
+resources: {}
